@@ -111,6 +111,9 @@ const run = async () => {
     });
 
     app.post("/book", async (req, res) => {
+      req.body.publicationDate = new Date(
+        req.body.publicationDate
+      ).getFullYear();
       const book = req.body;
 
       const result = await allBooksCollection.insertOne(book);
@@ -119,6 +122,9 @@ const run = async () => {
     });
 
     app.put("/book", async (req, res) => {
+      req.body.publicationDate = new Date(
+        req.body.publicationDate
+      ).getFullYear();
       const { _id, title, author, genre, publicationDate, image } = req.body;
       const result = await allBooksCollection.updateOne(
         { _id: new ObjectId(_id) },
