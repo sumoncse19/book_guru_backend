@@ -116,6 +116,26 @@ const run = async () => {
 
       res.send(result);
     });
+
+    app.put("/book", async (req, res) => {
+      const { _id, title, author, genre, publicationDate, image } = req.body;
+      const result = await allBooksCollection.updateOne(
+        { _id: new ObjectId(_id) },
+        { $set: { title, author, genre, publicationDate, image } },
+        { upsert: true }
+      );
+
+      res.send(result);
+    });
+
+    app.delete("/book/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await allBooksCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
+
+      res.send(result);
+    });
   } finally {
   }
 };
