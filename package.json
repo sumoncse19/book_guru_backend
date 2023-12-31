@@ -1,0 +1,21 @@
+{
+  "name": "book_guru",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/sumoncse19/book_guru_backend.git",
+  "author": "Md. Sumon",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
