@@ -46,6 +46,7 @@ const run = async () => {
 
     const usersCollection = dataBase.collection("users");
     const allBooksCollection = dataBase.collection("allBooks");
+    const reviewsCollection = dataBase.collection("reviews");
 
     // For register new user
     app.post("/signup", async (req, res) => {
@@ -133,6 +134,27 @@ const run = async () => {
       const result = await allBooksCollection.deleteOne({
         _id: new ObjectId(id),
       });
+
+      res.send(result);
+    });
+
+    app.get("/reviews/:id", async (req, res) => {
+      const id = req.params.id;
+      const reviews = await reviewsCollection.find({ bookId: id }).toArray();
+      await Promise.all(
+        reviews.map(async (review) => {
+          const user = await usersCollection.findOne({
+            _id: new ObjectId(review.userId),
+          });
+          review.user = user;
+          return review;
+        })
+      );
+      res.send(reviews);
+    });
+    app.post("/review", async (req, res) => {
+      const review = req.body;
+      const result = await reviewsCollection.insertOne(review);
 
       res.send(result);
     });
