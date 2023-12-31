@@ -103,6 +103,12 @@ const run = async () => {
       res.send({ status: true, data: books });
     });
 
+    app.get("/book/:id", async (req, res) => {
+      const id = req.params.id;
+      const book = await allBooksCollection.findOne({ _id: new ObjectId(id) });
+      res.send({ status: true, data: book });
+    });
+
     app.post("/book", async (req, res) => {
       const book = req.body;
 
